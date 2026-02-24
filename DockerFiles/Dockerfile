@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=osrf/ros
-ARG BASE_TAG= jazzy-desktop-full
+ARG BASE_TAG=jazzy-desktop
 
 FROM ${BASE_IMAGE}:${BASE_TAG}
 
@@ -7,7 +7,7 @@ FROM ${BASE_IMAGE}:${BASE_TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 ENV GZ_VERSION=harmonic
 ## arg ros2 distro 
-ARG DISTRO=humble
+ARG DISTRO=jazzy
 # RUN is used to execute and add new layer on top of the base immage
 RUN apt-get update 
 
