@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export PATH="/opt/TurboVNC/bin:/opt/VirtualGL/bin:$PATH"
 
 # Defaults
 export DISPLAY="${DISPLAY:-:1}"
