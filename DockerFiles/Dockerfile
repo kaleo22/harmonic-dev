@@ -40,13 +40,12 @@ RUN apt-get install -y \
     lsb-release \
     gnupg \
     && apt-get clean \
-    wget 
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
 
 # Gazebo repo key + list (als root ohne sudo)
-RUN curl -fsSL https://packages.osrfoundation.org/gazebo.gpg \
-    -o /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+
     
 RUN wget -q -O- --no-check-certificate https://packagecloud.io/dcommander/turbovnc/gpgkey | \
     gpg --dearmor >/etc/apt/trusted.gpg.d/TurboVNC.gpg
