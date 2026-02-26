@@ -40,9 +40,9 @@ RUN apt-get install -y \
     lsb-release \
     gnupg \
     && apt-get clean \
-    wget
+    wget 
 
-RUN apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
+RUN apt-get update && apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
 
 # Gazebo repo key + list (als root ohne sudo)
 RUN curl -fsSL https://packages.osrfoundation.org/gazebo.gpg \
