@@ -60,8 +60,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # add TurboVNC packagecloud repo (key + source list)
 RUN set -eux; \
     curl -s https://packagecloud.io/install/repositories/dcommander/turbovnc/script.deb.sh?any=true | sudo bash; \
-    echo "deb https://packagecloud.io/dcommander/turbovnc" \
-      > /etc/apt/sources.list.d/turbovnc.list; \
+    # echo "deb https://packagecloud.io/dcommander/turbovnc" \
+    #   > /etc/apt/sources.list.d/turbovnc.list; \
     apt-get update
 
 # --- NEU: GUI Remote Desktop Pakete ---
