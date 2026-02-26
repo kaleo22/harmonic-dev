@@ -72,6 +72,7 @@ RUN apt-get update && apt-get install -y \
     mesa-utils \
     net-tools \
     turbovnc=2.2.5-20200507 \
+    xauth xfonts-base xfonts-100dpi xfonts-75dpi fontconfig \
     && apt-get clean
 
 ENV PATH="/opt/TurboVNC/bin:/opt/VirtualGL/bin:${PATH}"

@@ -35,8 +35,7 @@ vncserver -kill "${DISPLAY}" >/dev/null 2>&1 || true
 # -localhost no => erreichbar im LAN (sonst nur localhost)
 vncserver "${DISPLAY}" \
   -geometry "${VNC_GEOMETRY}" \
-  -depth "${VNC_DEPTH}" \
-  -localhost no
+  -depth "${VNC_DEPTH}"
 
 echo ""
 echo "VNC started:"
