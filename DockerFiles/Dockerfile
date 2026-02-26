@@ -59,8 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # add TurboVNC packagecloud repo (key + source list)
 RUN set -eux; \
-    curl -fsSL https://packagecloud.io/dcommander/turbovnc/gpgkey \
-      | gpg --dearmor -o /etc/apt/trusted.gpg.d/turbovnc.gpg; \
+    curl -s https://packagecloud.io/install/repositories/dcommander/turbovnc/script.deb.sh?any=true | sudo bash; \
     echo "deb https://packagecloud.io/dcommander/turbovnc/ubuntu/ noble main" \
       > /etc/apt/sources.list.d/turbovnc.list; \
     apt-get update
@@ -72,6 +71,7 @@ RUN apt-get update && apt-get install -y \
     xorg xauth x11-xserver-utils x11-utils \
     mesa-utils \
     net-tools \
+    turbovnc=2.2.5-20200507 \
     && apt-get clean
 
 
