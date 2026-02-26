@@ -1,7 +1,7 @@
 services:
   ros2_jammy_sim:
     build:
-      context: ./docker_simulator/DockerFiles
+      context: ./DockerFiles
       dockerfile: Dockerfile
       args:
         - BASE_IMAGE=osrf/ros
