@@ -74,7 +74,7 @@ RUN apt-get update && apt-get install -y \
     turbovnc=2.2.5-20200507 \
     && apt-get clean
 
-
+ENV PATH="/opt/TurboVNC/bin:/opt/VirtualGL/bin:${PATH}"
 # Create user (wie bei dir)
 ARG USERNAME=ros
 ARG USER_UID=1000
@@ -107,4 +107,4 @@ RUN echo "source /opt/ros/${DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "if [ -f ~/${WORKSPACE}/install/setup.bash ]; then source ~/${WORKSPACE}/install/setup.bash; fi" >> ~/.bashrc
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["/usr/local/bin/start-vnc.sh"]
+CMD ["bash","/usr/local/bin/start-vnc.sh"]
