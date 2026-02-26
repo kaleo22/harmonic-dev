@@ -53,15 +53,34 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
 
 RUN apt-get update && apt-get install -y gz-harmonic && apt-get clean
 
+ARG TURBOVNC_VERSION=3.1.1
+ARG VIRTUALGL_VERSION=3.1.1
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends ca-certificates curl; \
+    rm -rf /var/lib/apt/lists/*; \
+    \
+    curl -fL -o /tmp/virtualgl.deb \
+      "https://sourceforge.net/projects/virtualgl/files/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb/download"; \
+    curl -fL -o /tmp/turbovnc.deb \
+      "https://sourceforge.net/projects/turbovnc/files/${TURBOVNC_VERSION}/turbovnc_${TURBOVNC_VERSION}_amd64.deb/download"; \
+    \
+    dpkg -i /tmp/virtualgl.deb /tmp/turbovnc.deb || true; \
+    apt-get update; \
+    apt-get install -y -f; \
+    rm -f /tmp/virtualgl.deb /tmp/turbovnc.deb; \
+    rm -rf /var/lib/apt/lists/*
+    
 # --- NEU: GUI Remote Desktop Pakete ---
 # XFCE als leichter Desktop, Xorg als Server, dbus für Desktop-Sitzung
 RUN apt-get update && apt-get install -y \
     xfce4 xfce4-terminal dbus-x11 \
     xorg xauth x11-xserver-utils x11-utils \
     mesa-utils \
-    turbovnc virtualgl \
     net-tools \
     && apt-get clean
+
 
 # Create user (wie bei dir)
 ARG USERNAME=ros
