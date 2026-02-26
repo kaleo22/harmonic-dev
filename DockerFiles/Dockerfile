@@ -39,7 +39,8 @@ RUN apt-get install -y \
     curl \
     lsb-release \
     gnupg \
-    && apt-get clean
+    && apt-get clean \
+    wget
 
 RUN apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
 
