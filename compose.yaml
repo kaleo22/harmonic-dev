@@ -1,8 +1,8 @@
 services:
   ros2_jammy_sim:
     build:
-      context: ./docker_simulator/DockerFiles
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./DockerFiles/Dockerfile
       args:
         - BASE_IMAGE=osrf/ros
         - BASE_TAG=jazzy-desktop-full
