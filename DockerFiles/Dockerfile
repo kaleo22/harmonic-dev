@@ -47,9 +47,9 @@ RUN apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
 RUN curl -fsSL https://packages.osrfoundation.org/gazebo.gpg \
     -o /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
     
-RUN wget -q -O- https://packagecloud.io/dcommander/turbovnc/gpgkey | \
+RUN wget -q -O- --no-check-certificate https://packagecloud.io/dcommander/turbovnc/gpgkey | \
     gpg --dearmor >/etc/apt/trusted.gpg.d/TurboVNC.gpg
-    
+
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/gazebo-stable.list
 
