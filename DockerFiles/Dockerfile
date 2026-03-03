@@ -51,12 +51,23 @@ RUN curl -fsSL https://packages.osrfoundation.org/gazebo.gpg \
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/gazebo-stable.list
 
-    # VirtualGL repo key + list
-RUN curl -fsSL https://packagecloud.io/dcommander/virtualgl/gpgkey \
-  | gpg --dearmor -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
+    # VirtualGL Debian Package 
+ARG VIRTUALGL_VERSION=3.1.3
 
-RUN echo "deb https://packagecloud.io/dcommander/virtualgl/" \
-  > /etc/apt/sources.list.d/virtualgl.list
+RUN set -eux; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends ca-certificates curl; \
+  arch="$(dpkg --print-architecture)"; \
+  case "$arch" in \
+    amd64) vgl_arch="amd64" ;; \
+    arm64) vgl_arch="arm64" ;; \
+    *) echo "Unsupported arch: $arch" >&2; exit 1 ;; \
+  esac; \
+  curl -fsSL -o /tmp/virtualgl.deb \
+    "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_${vgl_arch}.deb"; \
+  apt-get install -y --no-install-recommends /tmp/virtualgl.deb; \
+  rm -f /tmp/virtualgl.deb; \
+  rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y gz-harmonic && apt-get clean
 
