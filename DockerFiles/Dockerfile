@@ -52,8 +52,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
     > /etc/apt/sources.list.d/gazebo-stable.list
 
     # VirtualGL repo key + list
-RUN wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | \
-  gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
+RUN curl -fsSL https://packagecloud.io/dcommander/virtualgl/gpgkey \
+  | gpg --dearmor -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
 
 RUN echo "deb https://packagecloud.io/dcommander/virtualgl/ubuntu/ $(lsb_release -cs) main" \
   > /etc/apt/sources.list.d/virtualgl.list
@@ -79,7 +79,7 @@ RUN apt-get update && apt-get install -y \
     mesa-utils \
     net-tools \
     turbovnc=2.2.5-20200507 \
-    sudo apt install virtualgl=3.0.2-20221020 \
+    virtualgl \
     xauth xfonts-base xfonts-100dpi xfonts-75dpi fontconfig \
     && apt-get clean
 
