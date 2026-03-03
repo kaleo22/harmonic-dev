@@ -55,7 +55,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
 RUN curl -fsSL https://packagecloud.io/dcommander/virtualgl/gpgkey \
   | gpg --dearmor -o /etc/apt/trusted.gpg.d/VirtualGL.gpg
 
-RUN echo "deb https://packagecloud.io/dcommander/virtualgl/ubuntu/ $(lsb_release -cs) main" \
+RUN echo "deb https://packagecloud.io/dcommander/virtualgl/" \
   > /etc/apt/sources.list.d/virtualgl.list
 
 RUN apt-get update && apt-get install -y gz-harmonic && apt-get clean
