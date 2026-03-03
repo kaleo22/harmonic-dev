@@ -39,8 +39,11 @@ RUN apt-get install -y \
     curl \
     lsb-release \
     gnupg \
+    xserver-xorg-core xserver-xorg-video-dummy x11-xserver-utils xauth \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+COPY 10-dummy.conf /etc/X11/xorg.conf.d/10-dummy.conf
 
 RUN apt-get update && apt-get install -y ros-${DISTRO}-rmw-cyclonedds-cpp && apt-get clean
 
