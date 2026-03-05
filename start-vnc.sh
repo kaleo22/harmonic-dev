@@ -29,7 +29,7 @@ if [[ "${START_XORG:-0}" == "1" ]]; then
     sleep 1
   fi
 else
-  echo "Using external 3D display for VirtualGL: ${VGL_DISPLAY:-:0}"
+  echo "Using external 3D display for VirtualGL: ${VGL_DISPLAY:-:1}"
 fi
 
 # --- TurboVNC setup ---
