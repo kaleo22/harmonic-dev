@@ -48,7 +48,7 @@ services:
       - ~/.bash_history:/home/ros/.bash_history
       - ./docker_simulator:/home/ros/docker_simulation_ws
       - /tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rw
-      - /tmp/gdm.Xauthority:/tmp/gdm.Xauthority:ro
+      - /run/user/126/gdm/Xauthority:/tmp/gdm.Xauthority:ro
 
     # kein privileged nötig, kein /dev/nvidia* Mount nötig, kein /tmp/.X11-unix Mount nötig
     runtime: nvidia

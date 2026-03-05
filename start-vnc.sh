@@ -14,17 +14,22 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-${USER}}"
 mkdir -p "${XDG_RUNTIME_DIR}"
 chmod 700 "${XDG_RUNTIME_DIR}"
 
-# --- Start a "3D X server" on :0 (headless) ---
-# VirtualGL will use this display for GPU rendering.
-if ! pgrep -x Xorg >/dev/null 2>&1; then
-  echo "Starting Xorg on :0 ..."
-  rm -f /tmp/.X0-lock /tmp/.X11-unix/X0 || true
-  mkdir -p /tmp/.X11-unix
-  chmod 1777 /tmp/.X11-unix
-
-  # Start Xorg headless
-  Xorg :0 -noreset -nolisten tcp -logfile /tmp/Xorg.0.log &
-  sleep 1
+# --- 3D Display for VirtualGL ---
+# If you mount the host X socket (recommended for headless hosts),
+# do NOT try to manage /tmp/.X11-unix or start Xorg in the container.
+#
+# Set START_XORG=1 only if you intentionally want a container-local Xorg :0.
+if [[ "${START_XORG:-0}" == "1" ]]; then
+  if ! pgrep -x Xorg >/dev/null 2>&1; then
+    echo "Starting Xorg on :0 ..."
+    rm -f /tmp/.X0-lock /tmp/.X11-unix/X0 || true
+    mkdir -p /tmp/.X11-unix
+    chmod 1777 /tmp/.X11-unix
+    Xorg :0 -noreset -nolisten tcp -logfile /tmp/Xorg.0.log &
+    sleep 1
+  fi
+else
+  echo "Using external 3D display for VirtualGL: ${VGL_DISPLAY:-:0}"
 fi
 
 # --- TurboVNC setup ---
@@ -58,9 +63,7 @@ echo "To test OpenGL renderer inside VNC desktop:"
 echo "  glxinfo -B | egrep \"OpenGL vendor|OpenGL renderer\""
 echo ""
 echo "To run Gazebo with GPU via VirtualGL (inside VNC desktop terminal):"
-echo "  vglrun -d :0 gz sim"
-echo ""
-echo "Xorg log (3D display): /tmp/Xorg.0.log"
+echo "  vglrun -d ${VGL_DISPLAY:-:0} gz sim"
 echo ""
 
 tail -f /dev/null
