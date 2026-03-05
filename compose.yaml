@@ -51,7 +51,13 @@ services:
       #- /tmp/xorg1.Xauthority:/tmp/xorg1.Xauthority:ro
 
     # kein privileged nötig, kein /dev/nvidia* Mount nötig, kein /tmp/.X11-unix Mount nötig
-    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 networks:
   ros2_internal:
