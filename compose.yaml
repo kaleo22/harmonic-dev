@@ -21,7 +21,7 @@ services:
     tty: true
 
     # wichtig für Gazebo/Qt/Rendering
-    shm_size: "2gb"
+    #shm_size: "2gb"
 
     environment:
       - ROS_DOMAIN_ID=0
