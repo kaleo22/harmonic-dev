@@ -37,6 +37,10 @@ services:
       - VNC_DEPTH=24
       - VNC_PASSWORD=change-me
 
+      #VGL Settings
+      - VGL_DISPLAY=:0             # host Xorg (:0 via /tmp/.X11-unix/X0)
+      - XAUTHORITY=/tmp/gdm.Xauthority
+
     ports:
       - "5901:5901"   # VNC (TurboVNC)
 
