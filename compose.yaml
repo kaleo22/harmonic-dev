@@ -1,5 +1,6 @@
 services:
   ros2_jammy_sim:
+    user: "0:0"
     build:
       context: ./
       dockerfile: ./DockerFiles/Dockerfile
