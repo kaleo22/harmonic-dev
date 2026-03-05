@@ -47,8 +47,8 @@ services:
     volumes:
       - ~/.bash_history:/home/ros/.bash_history
       - ./docker_simulator:/home/ros/docker_simulation_ws
-      - /tmp/.X11-unix/X1:/tmp/.X11-unix/X1:rw
-      - /tmp/xorg1.Xauthority:/tmp/xorg1.Xauthority:ro
+      #- /tmp/.X11-unix/X1:/tmp/.X11-unix/X1:rw
+      #- /tmp/xorg1.Xauthority:/tmp/xorg1.Xauthority:ro
 
     # kein privileged nötig, kein /dev/nvidia* Mount nötig, kein /tmp/.X11-unix Mount nötig
     runtime: nvidia
