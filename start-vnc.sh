@@ -75,3 +75,5 @@ echo "  vglrun -d ${VGL_DISPLAY:-:0} gz sim"
 echo ""
 
 tail -f /dev/null
+
+vglrun -d $DISPLAY glxinfo -B | egrep "OpenGL vendor|OpenGL renderer"
