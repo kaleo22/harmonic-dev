@@ -39,7 +39,6 @@ services:
 
       #VGL Settings
       - VGL_DISPLAY=:0             # host Xorg (:0 via /tmp/.X11-unix/X0)
-      - XAUTHORITY=/tmp/gdm.Xauthority
 
     ports:
       - "5901:5901"   # VNC (TurboVNC)
@@ -48,7 +47,7 @@ services:
       - ~/.bash_history:/home/ros/.bash_history
       - ./docker_simulator:/home/ros/docker_simulation_ws
       - /tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rw
-      - /run/user/126/gdm/Xauthority:/tmp/gdm.Xauthority:ro
+      - /tmp/gdm.Xauthority:/tmp/gdm.Xauthority:ro
 
     # kein privileged nötig, kein /dev/nvidia* Mount nötig, kein /tmp/.X11-unix Mount nötig
     runtime: nvidia

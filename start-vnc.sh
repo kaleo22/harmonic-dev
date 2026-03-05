@@ -49,6 +49,14 @@ startxfce4 &
 EOF
 chmod +x "${HOME}/.vnc/xstartup"
 
+# Ensure Xvnc can create its UNIX socket
+mkdir -p /tmp/.X11-unix
+chmod 1777 /tmp/.X11-unix || true
+rm -f /tmp/.X1-lock /tmp/.X11-unix/X1 || true
+
+# Use a writable Xauthority for the VNC X server
+export XAUTHORITY="$HOME/.Xauthority"
+
 vncserver -kill "${DISPLAY}" >/dev/null 2>&1 || true
 
 vncserver "${DISPLAY}" \
