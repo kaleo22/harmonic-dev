@@ -39,8 +39,9 @@ services:
       - VNC_PASSWORD=change-me
 
       #VGL Settings
-      - VGL_DISPLAY=:1             # host Xorg (:1 via /tmp/.X11-unix/X1)
-
+      #- VGL_DISPLAY=:1             # host Xorg (:1 via /tmp/.X11-unix/X1)
+      - START_XORG=1
+      - VGL_DISPLAY=:0
     ports:
       - "5901:5901"   # VNC (TurboVNC)
 
