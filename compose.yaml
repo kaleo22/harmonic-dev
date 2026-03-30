@@ -30,7 +30,7 @@ services:
 
       # NVIDIA Container Runtime
       - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all, graphics,display,utility,compute
+      - NVIDIA_DRIVER_CAPABILITIES=all
 
       # VNC Settings
       - DISPLAY=:1
@@ -40,8 +40,8 @@ services:
 
       #VGL Settings
       #- VGL_DISPLAY=:1             # host Xorg (:1 via /tmp/.X11-unix/X1)
-      - START_XORG=1
-      - VGL_DISPLAY=:0
+      #- START_XORG=1
+      - VGL_DISPLAY=egl
     ports:
       - "5901:5901"   # VNC (TurboVNC)
 
