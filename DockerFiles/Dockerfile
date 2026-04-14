@@ -135,7 +135,7 @@ RUN sudo mkdir -p /usr/share/glvnd/egl_vendor.d && \
     '  "file_format_version" : "1.0.0",' \
     '  "ICD" : { "library_path" : "libEGL_nvidia.so.0" }' \
     '}' \
-    > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+    sudo > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 # --- VNC xstartup: Openbox Session starten ---
 # ACHTUNG: Das muss NACHDEM der User "ros" existiert passieren.
