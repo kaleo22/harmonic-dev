@@ -45,6 +45,10 @@ services:
       - ~/.bash_history:/home/ros/.bash_history
       - ./docker_simulator:/home/ros/docker_simulation_ws
 
+    group_add:
+      - "render"
+      - "video"
+
 networks:
   ros2_internal:
     driver: bridge
