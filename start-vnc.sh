@@ -71,7 +71,7 @@ echo "To test OpenGL renderer inside VNC desktop:"
 echo "  glxinfo -B | egrep \"OpenGL vendor|OpenGL renderer\""
 echo ""
 echo "To run Gazebo with GPU via VirtualGL (inside VNC desktop terminal):"
-echo "  vglrun -d ${VGL_DISPLAY:-:0} gz sim"
+echo "  vglrun -d egl ${VGL_DISPLAY:-:1} gz sim --verbose"
 echo ""
 
 tail -f /dev/null
