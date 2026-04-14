@@ -129,5 +129,14 @@ USER ${USERNAME}
 RUN echo "source /opt/ros/${DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "if [ -f ~/${WORKSPACE}/install/setup.bash ]; then source ~/${WORKSPACE}/install/setup.bash; fi" >> ~/.bashrc
 
+RUN mkdir -p /usr/share/glvnd/egl_vendor.d && \
+    printf '%s\n' \
+    '{' \
+    '  "file_format_version" : "1.0.0",' \
+    '  "ICD" : { "library_path" : "libEGL_nvidia.so.0" }' \
+    '}' \
+    > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+
+
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash","/usr/local/bin/start-vnc.sh"]
