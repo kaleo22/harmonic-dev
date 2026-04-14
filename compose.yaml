@@ -48,6 +48,7 @@ services:
     group_add:
       - "render"
       - "video"
+      - "lpadmin"
 
 networks:
   ros2_internal:
