@@ -129,37 +129,29 @@ USER ${USERNAME}
 RUN echo "source /opt/ros/${DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "if [ -f ~/${WORKSPACE}/install/setup.bash ]; then source ~/${WORKSPACE}/install/setup.bash; fi" >> ~/.bashrc
 
-RUN sudo mkdir -p /usr/share/glvnd/egl_vendor.d && \
-    printf '%s\n' \
-    '{' \
-    '  "file_format_version" : "1.0.0",' \
-    '  "ICD" : { "library_path" : "libEGL_nvidia.so.0" }' \
-    '}' \
-    sudo > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
-
 # --- VNC xstartup: Openbox Session starten ---
 # ACHTUNG: Das muss NACHDEM der User "ros" existiert passieren.
 # Falls du im Dockerfile später auf USER ros wechselst, kannst du das auch ohne chown machen.
-RUN mkdir -p /home/ros/.vnc && \
-    printf '%s\n' \
-      '#!/bin/sh' \
-      'unset SESSION_MANAGER' \
-      'unset DBUS_SESSION_BUS_ADDRESS' \
-      '' \
-      'export XDG_RUNTIME_DIR="/tmp/runtime-'${USERNAME:-ros}'"' \
-      'mkdir -p "$XDG_RUNTIME_DIR"' \
-      'chmod 700 "$XDG_RUNTIME_DIR"' \
-      '' \
-      'if command -v dbus-launch >/dev/null 2>&1; then' \
-      '  eval "$(dbus-launch --sh-syntax --exit-with-session)"' \
-      'fi' \
-      '' \
-      'xrdb "$HOME/.Xresources" 2>/dev/null || true' \
-      '' \
-      'exec openbox-session' \
-      > /home/ros/.vnc/xstartup && \
-    chmod +x /home/ros/.vnc/xstartup && \
-    chown -R 1000:1000 /home/ros/.vnc
+# RUN mkdir -p /home/ros/.vnc && \
+#     printf '%s\n' \
+#       '#!/bin/sh' \
+#       'unset SESSION_MANAGER' \
+#       'unset DBUS_SESSION_BUS_ADDRESS' \
+#       '' \
+#       'export XDG_RUNTIME_DIR="/tmp/runtime-'${USERNAME:-ros}'"' \
+#       'mkdir -p "$XDG_RUNTIME_DIR"' \
+#       'chmod 700 "$XDG_RUNTIME_DIR"' \
+#       '' \
+#       'if command -v dbus-launch >/dev/null 2>&1; then' \
+#       '  eval "$(dbus-launch --sh-syntax --exit-with-session)"' \
+#       'fi' \
+#       '' \
+#       'xrdb "$HOME/.Xresources" 2>/dev/null || true' \
+#       '' \
+#       'exec openbox-session' \
+#       > /home/ros/.vnc/xstartup && \
+#     chmod +x /home/ros/.vnc/xstartup && \
+#     chown -R 1000:1000 /home/ros/.vnc
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash","/usr/local/bin/start-vnc.sh"]

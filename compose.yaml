@@ -44,6 +44,7 @@ services:
     volumes:
       - ~/.bash_history:/home/ros/.bash_history
       - ./docker_simulator:/home/ros/docker_simulation_ws
+      - ./10_nvidia.json:/usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
     group_add:
       - "render"
