@@ -56,6 +56,7 @@ services:
       resources:
         reservations:
           devices:
+            - /dev/dri:/dev/dri
             - driver: nvidia
               count: 1
               capabilities: [gpu]
